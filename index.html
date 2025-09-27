@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/Changli-icon.webp" type="image/x-icon">
+    <link rel="shortcut icon" href="images/Changli-icon.webp" type="image/x-icon">
+    <title>Karbit Generator - Waifu Edition 💖</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <i class="fas fa-heart"></i>
+                    Karbit Generator
+                    <i class="fas fa-heart"></i>
+                </h1>
+                <p class="subtitle">Cek seberapa karbit kamu dengan waifu mu! 💕</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h3>Upload Gambar Waifu Kamu</h3>
+                        <p>Drag & drop atau klik untuk memilih gambar</p>
+                        <input type="file" id="imageInput" accept="image/*" hidden>
+                        <button class="upload-btn" id="uploadBtn">
+                            <i class="fas fa-plus"></i> Pilih Gambar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="preview-section" id="previewSection" style="display: none;">
+                <div class="image-preview">
+                    <img id="previewImage" alt="Waifu Preview">
+                    <button class="change-image-btn" onclick="changeImage()">
+                        <i class="fas fa-camera"></i> Ganti Gambar
+                    </button>
+                </div>
+                
+                <!-- Karbit Button -->
+                <div class="karbit-action">
+                    <button class="karbit-btn" id="karbitBtn" onclick="calculateKarbit()">
+                        <span class="btn-text">
+                            <i class="fas fa-magic"></i>
+                            Cek Karbit Level!
+                        </span>
+                        <div class="btn-loading" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Menghitung...
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Result Section -->
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <div class="result-card">
+                        <div class="percentage-display">
+                            <div class="percentage-circle">
+                                <div class="percentage-number" id="percentageNumber">0%</div>
+                            </div>
+                        </div>
+                        <div class="result-text">
+                            <h3 id="resultTitle">Karbit Level</h3>
+                            <p id="resultDescription">Loading...</p>
+                        </div>
+                        <div class="result-actions">
+                            <button class="share-btn" onclick="shareResult()">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                            <button class="retry-btn" onclick="resetCalculation()">
+                                <i class="fas fa-redo"></i> Coba Lagi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>Made with <i class="fas fa-heart"></i> for all waifu lovers</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Particles Background -->
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

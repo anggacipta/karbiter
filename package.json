@@ -1,0 +1,31 @@
+{
+  "name": "Karbit Generator - Waifu Edition",
+  "version": "1.0.0",
+  "description": "Website unik untuk menghitung persentase karbit dengan waifu favorit",
+  "author": "GitHub Copilot",
+  "license": "MIT",
+  "keywords": ["waifu", "karbit", "anime", "fun", "generator", "interactive"],
+  "homepage": ".",
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "features": [
+    "Drag & Drop Upload",
+    "Interactive Preview", 
+    "Karbit Calculator",
+    "Animated Results",
+    "Responsive Design",
+    "Share Feature",
+    "Easter Eggs"
+  ],
+  "technologies": {
+    "frontend": ["HTML5", "CSS3", "Vanilla JavaScript"],
+    "styling": ["Flexbox", "CSS Grid", "Animations", "Glass Morphism"],
+    "apis": ["File API", "Canvas API", "Web Share API"]
+  },
+  "compatibility": {
+    "browsers": ["Chrome", "Firefox", "Safari", "Edge"],
+    "devices": ["Desktop", "Tablet", "Mobile"]
+  }
+}
