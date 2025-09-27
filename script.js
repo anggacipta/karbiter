@@ -39,30 +39,82 @@ const waifuQuotes = [
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', function() {
-    initializeApp();
-    createParticles();
+    try {
+        initializeApp();
+        createParticles();
+    } catch (error) {
+        console.error('Error initializing app:', error);
+        alert('Terjadi kesalahan saat memuat aplikasi. Silakan refresh halaman.');
+    }
 });
 
 function initializeApp() {
     // Image input event listener
     imageInput.addEventListener('change', handleImageUpload);
     
-    // Upload button event listener
+    // Upload button event listener dengan mobile support
     const uploadBtn = document.getElementById('uploadBtn');
-    uploadBtn.addEventListener('click', () => imageInput.click());
     
-    // Drag and drop functionality
-    uploadArea.addEventListener('dragover', handleDragOver);
-    uploadArea.addEventListener('dragleave', handleDragLeave);
-    uploadArea.addEventListener('drop', handleDrop);
+    // Function untuk trigger file input
+    function triggerFileInput(e) {
+        // Jangan preventDefault untuk desktop click events
+        if (e.type === 'touchend') {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        // Trigger file input
+        if (imageInput) {
+            imageInput.click();
+        }
+    }
     
-    // Click pada area upload (tapi bukan pada button)
+    // Event listeners untuk desktop dan mobile
+    uploadBtn.addEventListener('click', triggerFileInput);
+    
+    // Touch event khusus mobile
+    if (isMobileDevice()) {
+        uploadBtn.addEventListener('touchend', triggerFileInput);
+    }
+    
+    // Drag and drop functionality (desktop only)
+    if (!isMobileDevice()) {
+        uploadArea.addEventListener('dragover', handleDragOver);
+        uploadArea.addEventListener('dragleave', handleDragLeave);
+        uploadArea.addEventListener('drop', handleDrop);
+    }
+    
+    // Click pada area upload 
     uploadArea.addEventListener('click', (e) => {
         // Hanya trigger jika tidak mengklik button
         if (!e.target.closest('.upload-btn')) {
+            // Simple click untuk desktop
             imageInput.click();
         }
     });
+    
+    // Touch event khusus untuk mobile
+    if (isMobileDevice()) {
+        uploadArea.addEventListener('touchend', (e) => {
+            if (!e.target.closest('.upload-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                imageInput.click();
+            }
+        });
+    }
+}
+
+// Detect mobile device (lebih akurat)
+function isMobileDevice() {
+    // Cek user agent untuk mobile devices
+    const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i;
+    
+    // Cek screen size juga
+    const isMobileScreen = window.screen.width <= 768;
+    
+    // Kombinasi user agent dan screen size
+    return mobileRegex.test(navigator.userAgent) && isMobileScreen;
 }
 
 // Create floating particles for background effect
@@ -114,10 +166,24 @@ function handleDrop(e) {
 
 // Handle image upload
 function handleImageUpload(e) {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-        processImageFile(file);
+    const files = e.target.files;
+    
+    if (!files || files.length === 0) {
+        return;
     }
+    
+    const file = files[0];
+    
+    // Validate file type dengan lebih comprehensive
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/bmp'];
+    const isValidType = validTypes.includes(file.type) || file.type.startsWith('image/');
+    
+    if (!isValidType) {
+        alert('Format file tidak didukung! Silakan pilih file gambar (JPG, PNG, GIF, WEBP)');
+        return;
+    }
+    
+    processImageFile(file);
 }
 
 // Process uploaded image
@@ -128,24 +194,43 @@ function processImageFile(file) {
         return;
     }
     
+    // Check FileReader support
+    if (!window.FileReader) {
+        alert('Browser Anda tidak mendukung upload file. Silakan gunakan browser yang lebih baru.');
+        return;
+    }
+    
     const reader = new FileReader();
     
     reader.onload = function(e) {
-        uploadedImage = {
-            file: file,
-            dataUrl: e.target.result,
-            name: file.name,
-            size: file.size
-        };
-        
-        showPreview();
+        try {
+            uploadedImage = {
+                file: file,
+                dataUrl: e.target.result,
+                name: file.name,
+                size: file.size
+            };
+            
+            showPreview();
+        } catch (error) {
+            alert('Gagal memproses gambar. Silakan coba lagi.');
+        }
     };
     
     reader.onerror = function(e) {
-        alert('Gagal membaca file gambar');
+        alert('Gagal membaca file gambar. Silakan coba file lain.');
     };
     
-    reader.readAsDataURL(file);
+    reader.onabort = function(e) {
+        alert('Upload dibatalkan.');
+    };
+    
+    // Start reading file
+    try {
+        reader.readAsDataURL(file);
+    } catch (error) {
+        alert('Gagal membaca file. Silakan coba lagi.');
+    }
 }
 
 // Show image preview
