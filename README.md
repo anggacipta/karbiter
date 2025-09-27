@@ -69,13 +69,13 @@ Website ini menggunakan algoritma unik untuk menghitung persentase karbit:
 
 ## 📊 Karbit Levels
 
-- **0-20%**: Bukan Jodoh 💔
-- **21-40%**: Teman Biasa 😐  
-- **41-60%**: Ada Perasaan 😊
-- **61-75%**: Crush Banget! 😍
-- **76-85%**: Hampir Perfect 💕
-- **86-95%**: Soulmate Detected! ✨
-- **96-100%**: Ultimate Waifu! 👑
+- **0-20%**: Bukan My istri inimah 💔
+- **21-40%**: Akulah pria yang paling setia. Tidak akan mencari yang lain 😐  
+- **41-60%**: Hmmmm, tidak boleh. Aku sudah memiliki My. Aku janji tidak akan karbit lagi 😊
+- **61-75%**: Ini sih jelas my 😍
+- **76-85%**: Sekarbit karbit nya aku, cinta ku hanya untuk mu sayang 💕
+- **86-95%**: Alamak Karbitnya, bukankah ini my! ✨
+- **96-100%**: Ultimate Karbit! 👑, Halo maniesz😤
 
 ## 🎪 Easter Eggs
 
